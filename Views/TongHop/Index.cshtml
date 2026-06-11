@@ -1,103 +1,132 @@
-﻿@{
-    ViewData["Title"] = "Trang chủ";
+@model GioChuanGiangDay.ViewModels.TongHopGioChuanViewModel?
+
+@{
+    ViewData["Title"] = "Tổng hợp giờ chuẩn";
 }
 
 <div class="container mt-4">
+    <h2>Tổng hợp giờ chuẩn</h2>
 
-    <div class="text-center mb-4">
-        <img src="~/images/logo-ctut.png"
-             alt="Logo Trường Đại học Kỹ thuật - Công nghệ Cần Thơ"
-             style="max-width: 170px; height: auto;" />
-
-        <h2 class="mt-3 text-primary">
-            PHẦN MỀM QUẢN LÝ VÀ TÍNH GIỜ CHUẨN GIẢNG VIÊN
-        </h2>
-
-        <h5 class="text-muted">
-            Trường Đại học Kỹ thuật - Công nghệ Cần Thơ
-        </h5>
-    </div>
-
-    <div class="card shadow-sm mb-4">
-        <div class="card-body">
-            <h4 class="card-title">Giới thiệu phần mềm</h4>
-
-            <p>
-                Phần mềm được xây dựng nhằm hỗ trợ giảng viên cập nhật, theo dõi
-                và tổng hợp khối lượng công việc chuyên môn trong năm học, bao gồm:
-                giờ giảng dạy trực tiếp, giờ hướng dẫn sinh viên, giờ hội đồng,
-                giờ nghiên cứu khoa học và các nhiệm vụ khác.
-            </p>
-
-            <p>
-                Hệ thống cho phép tính toán giờ chuẩn dựa trên chức danh, trình độ,
-                tình trạng tập sự, tình trạng đi học nghiên cứu sinh và các hoạt động
-                chuyên môn được quy đổi theo quy định chế độ làm việc của giảng viên.
-            </p>
-
-            <p>
-                Mục tiêu chính là giúp giảng viên chủ động kiểm tra số giờ đã thực hiện,
-                số giờ còn thiếu hoặc vượt so với định mức được phân công trong năm học.
-            </p>
-        </div>
-    </div>
-
-    <div class="row g-3">
-
-        <div class="col-md-3">
-            <div class="card h-100 shadow-sm">
-                <div class="card-body text-center">
-                    <h5>Giảng viên</h5>
-                    <p>Quản lý hồ sơ, chức danh, trình độ, tập sự, nghiên cứu sinh.</p>
-                    <a class="btn btn-primary" asp-controller="GiangVien" asp-action="Index">
-                        Vào quản lý
-                    </a>
-                </div>
-            </div>
+    <form method="get" asp-action="Index" class="row g-3 mb-4">
+        <div class="col-md-5">
+            <label class="form-label">Giảng viên</label>
+            <select name="giangVienId" asp-items="ViewBag.GiangVienId" class="form-control">
+                <option value="">-- Chọn giảng viên --</option>
+            </select>
         </div>
 
         <div class="col-md-3">
-            <div class="card h-100 shadow-sm">
-                <div class="card-body text-center">
-                    <h5>Giờ giảng</h5>
-                    <p>Nhập giờ giảng lý thuyết, thực hành, sĩ số và học phần.</p>
-                    <a class="btn btn-success" asp-controller="GiangDay" asp-action="Index">
-                        Nhập giờ giảng
-                    </a>
-                </div>
-            </div>
+            <label class="form-label">Năm học</label>
+            <input name="namHoc" value="@ViewBag.NamHoc" class="form-control" />
         </div>
 
-        <div class="col-md-3">
-            <div class="card h-100 shadow-sm">
-                <div class="card-body text-center">
-                    <h5>Hoạt động quy đổi</h5>
-                    <p>Nhập hướng dẫn sinh viên, khóa luận, NCKH, hội đồng.</p>
-                    <a class="btn btn-warning" asp-controller="HoatDongQuyDoi" asp-action="Index">
-                        Nhập hoạt động
-                    </a>
-                </div>
-            </div>
+        <div class="col-md-4 d-flex align-items-end">
+            <button type="submit" class="btn btn-primary me-2">Xem tổng hợp</button>
+            <a asp-controller="HoatDongQuyDoi" asp-action="Index" class="btn btn-secondary">Hoạt động quy đổi</a>
         </div>
+    </form>
 
-        <div class="col-md-3">
-            <div class="card h-100 shadow-sm">
-                <div class="card-body text-center">
-                    <h5>Tổng hợp</h5>
-                    <p>Đối chiếu tổng giờ thực hiện với định mức được giao.</p>
-                    <a class="btn btn-info" asp-controller="TongHop" asp-action="Index">
-                        Xem tổng hợp
-                    </a>
-                </div>
+    @if (Model != null)
+    {
+        if (!Model.DaCauHinhDinhMuc)
+        {
+            <div class="alert alert-warning">
+                @Model.GhiChu
             </div>
+        }
+
+        <h4>@Model.HoTen - @Model.MaGiangVien</h4>
+        <p>Năm học: <strong>@Model.NamHoc</strong></p>
+
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Nội dung</th>
+                    <th class="text-end">Số giờ</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="table-primary">
+                    <td colspan="2"><strong>I. GIỜ GIẢNG DẠY</strong></td>
+                </tr>
+                <tr>
+                    <td>Định mức giờ giảng dạy phải hoàn thành</td>
+                    <td class="text-end">@Model.GioChuanGiangDay</td>
+                </tr>
+                <tr>
+                    <td>Giờ giảng dạy trực tiếp</td>
+                    <td class="text-end">@Model.GioGiangDayTrucTiep</td>
+                </tr>
+                <tr>
+                    <td>Giờ hướng dẫn sinh viên / thực tập / khóa luận / giảng dạy khác</td>
+                    <td class="text-end">@Model.GioHuongDanVaGiangDayKhac</td>
+                </tr>
+                <tr>
+                    <td>Giờ hội đồng liên quan giảng dạy</td>
+                    <td class="text-end">@Model.GioHoiDong</td>
+                </tr>
+                <tr>
+                    <td><strong>Tổng giờ giảng dạy quy đổi</strong></td>
+                    <td class="text-end"><strong>@Model.TongGioGiangDay</strong></td>
+                </tr>
+                <tr>
+                    <td><strong>Chênh lệch giờ giảng dạy</strong></td>
+                    <td class="text-end">
+                        @if (Model.ChenhLechGiangDay >= 0)
+                        {
+                            <span class="text-success"><strong>Dư @Model.ChenhLechGiangDay giờ</strong></span>
+                        }
+                        else
+                        {
+                            <span class="text-danger"><strong>Thiếu @Math.Abs(Model.ChenhLechGiangDay) giờ</strong></span>
+                        }
+                    </td>
+                </tr>
+
+                <tr class="table-success">
+                    <td colspan="2"><strong>II. NGHIÊN CỨU KHOA HỌC</strong></td>
+                </tr>
+                <tr>
+                    <td>Định mức giờ NCKH phải hoàn thành</td>
+                    <td class="text-end">@Model.GioChuanNckh</td>
+                </tr>
+                <tr>
+                    <td>Tổng giờ NCKH đã thực hiện</td>
+                    <td class="text-end">@Model.GioNckh</td>
+                </tr>
+                <tr>
+                    <td><strong>Chênh lệch giờ NCKH</strong></td>
+                    <td class="text-end">
+                        @if (Model.ChenhLechNckh >= 0)
+                        {
+                            <span class="text-success"><strong>Dư @Model.ChenhLechNckh giờ</strong></span>
+                        }
+                        else
+                        {
+                            <span class="text-danger"><strong>Thiếu @Math.Abs(Model.ChenhLechNckh) giờ</strong></span>
+                        }
+                    </td>
+                </tr>
+
+                <tr class="table-warning">
+                    <td colspan="2"><strong>III. NHIỆM VỤ KHÁC</strong></td>
+                </tr>
+                <tr>
+                    <td>Tổng giờ nhiệm vụ khác</td>
+                    <td class="text-end">@Model.GioNhiemVuKhac</td>
+                </tr>
+
+                <tr class="table-dark">
+                    <td><strong>TỔNG TẤT CẢ GIỜ QUY ĐỔI</strong></td>
+                    <td class="text-end"><strong>@Model.TongTatCaGioQuyDoi</strong></td>
+                </tr>
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <div class="alert alert-info">
+            Chọn giảng viên và năm học để xem tổng hợp giờ chuẩn.
         </div>
-
-    </div>
-
-    <div class="alert alert-secondary mt-4">
-        <strong>Ghi chú:</strong>
-        Phần mềm đang được xây dựng dựa trên quy định chế độ làm việc của giảng viên,
-        bao gồm định mức giờ giảng dạy, giờ nghiên cứu khoa học và quy đổi các hoạt động chuyên môn. 
-    </div>
-
+    }
 </div>
