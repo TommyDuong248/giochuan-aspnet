@@ -1,0 +1,103 @@
+﻿@{
+    ViewData["Title"] = "Trang chủ";
+}
+
+<div class="container mt-4">
+
+    <div class="text-center mb-4">
+        <img src="~/images/logo-ctut.png"
+             alt="Logo Trường Đại học Kỹ thuật - Công nghệ Cần Thơ"
+             style="max-width: 170px; height: auto;" />
+
+        <h2 class="mt-3 text-primary">
+            PHẦN MỀM QUẢN LÝ VÀ TÍNH GIỜ CHUẨN GIẢNG VIÊN
+        </h2>
+
+        <h5 class="text-muted">
+            Trường Đại học Kỹ thuật - Công nghệ Cần Thơ
+        </h5>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+        <div class="card-body">
+            <h4 class="card-title">Giới thiệu phần mềm</h4>
+
+            <p>
+                Phần mềm được xây dựng nhằm hỗ trợ giảng viên cập nhật, theo dõi
+                và tổng hợp khối lượng công việc chuyên môn trong năm học, bao gồm:
+                giờ giảng dạy trực tiếp, giờ hướng dẫn sinh viên, giờ hội đồng,
+                giờ nghiên cứu khoa học và các nhiệm vụ khác.
+            </p>
+
+            <p>
+                Hệ thống cho phép tính toán giờ chuẩn dựa trên chức danh, trình độ,
+                tình trạng tập sự, tình trạng đi học nghiên cứu sinh và các hoạt động
+                chuyên môn được quy đổi theo quy định chế độ làm việc của giảng viên.
+            </p>
+
+            <p>
+                Mục tiêu chính là giúp giảng viên chủ động kiểm tra số giờ đã thực hiện,
+                số giờ còn thiếu hoặc vượt so với định mức được phân công trong năm học.
+            </p>
+        </div>
+    </div>
+
+    <div class="row g-3">
+
+        <div class="col-md-3">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body text-center">
+                    <h5>Giảng viên</h5>
+                    <p>Quản lý hồ sơ, chức danh, trình độ, tập sự, nghiên cứu sinh.</p>
+                    <a class="btn btn-primary" asp-controller="GiangVien" asp-action="Index">
+                        Vào quản lý
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body text-center">
+                    <h5>Giờ giảng</h5>
+                    <p>Nhập giờ giảng lý thuyết, thực hành, sĩ số và học phần.</p>
+                    <a class="btn btn-success" asp-controller="GiangDay" asp-action="Index">
+                        Nhập giờ giảng
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body text-center">
+                    <h5>Hoạt động quy đổi</h5>
+                    <p>Nhập hướng dẫn sinh viên, khóa luận, NCKH, hội đồng.</p>
+                    <a class="btn btn-warning" asp-controller="HoatDongQuyDoi" asp-action="Index">
+                        Nhập hoạt động
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body text-center">
+                    <h5>Tổng hợp</h5>
+                    <p>Đối chiếu tổng giờ thực hiện với định mức được giao.</p>
+                    <a class="btn btn-info" asp-controller="TongHop" asp-action="Index">
+                        Xem tổng hợp
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="alert alert-secondary mt-4">
+        <strong>Ghi chú:</strong>
+        Phần mềm đang được xây dựng dựa trên quy định chế độ làm việc của giảng viên,
+        bao gồm định mức giờ giảng dạy, giờ nghiên cứu khoa học và quy đổi các hoạt động chuyên môn. 
+    </div>
+
+</div>
