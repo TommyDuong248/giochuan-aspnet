@@ -1,0 +1,80 @@
+@model GioChuanGiangDay.Models.GiangVien
+
+@{
+    ViewData["Title"] = "Sửa giảng viên";
+}
+
+<div class="container mt-4">
+    <h2>Sửa giảng viên</h2>
+
+    <form asp-action="Edit" method="post">
+        <input type="hidden" asp-for="Id" />
+
+        <div class="mb-3">
+            <label class="form-label">Mã giảng viên</label>
+            <input asp-for="MaGiangVien" class="form-control" />
+            <span asp-validation-for="MaGiangVien" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Họ tên</label>
+            <input asp-for="HoTen" class="form-control" />
+            <span asp-validation-for="HoTen" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Khoa</label>
+            <input asp-for="Khoa" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Bộ môn</label>
+            <input asp-for="BoMon" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Chức danh</label>
+            <select asp-for="MaChucDanh" class="form-control">
+                <option value="">-- Chọn chức danh --</option>
+                <option value="GV_HANG_I">Giảng viên hạng I</option>
+                <option value="GV_HANG_II">Giảng viên hạng II</option>
+                <option value="GV_HANG_III">Giảng viên hạng III</option>
+                <option value="TRO_GIANG">Trợ giảng</option>
+            </select>
+            <span asp-validation-for="MaChucDanh" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Trình độ</label>
+            <select asp-for="TrinhDo" class="form-control">
+                <option value="">-- Chọn trình độ --</option>
+                <option value="TIEN_SI">Tiến sĩ</option>
+                <option value="THAC_SI">Thạc sĩ</option>
+                <option value="KHAC">Khác</option>
+            </select>
+            <span asp-validation-for="TrinhDo" class="text-danger"></span>
+        </div>
+
+        <div class="form-check mb-3">
+            <input asp-for="LaTapSu" class="form-check-input" />
+            <label class="form-check-label">
+                Giảng viên tập sự - giảm 50% giờ chuẩn, miễn NCKH
+            </label>
+        </div>
+
+        <div class="form-check mb-3">
+            <input asp-for="DangHocNghienCuuSinh" class="form-check-input" />
+            <label class="form-check-label">
+                Đang học nghiên cứu sinh - giảm 50% giờ chuẩn, miễn NCKH
+            </label>
+        </div>
+
+        <div class="form-check mb-3">
+            <input asp-for="DangLamViec" class="form-check-input" />
+            <label class="form-check-label">Đang làm việc</label>
+        </div>
+
+        <button type="submit" class="btn btn-success">Lưu thay đổi</button>
+        <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+    </form>
+</div>

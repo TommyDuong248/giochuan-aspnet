@@ -1,0 +1,101 @@
+@model List<GioChuanGiangDay.Models.GiangVien>
+
+@{
+    ViewData["Title"] = "Danh sách giảng viên";
+}
+
+<div class="container mt-4">
+    <h2>Danh sách giảng viên</h2>
+
+    <p>
+        <a class="btn btn-primary" asp-action="Create">Thêm giảng viên</a>
+        <a class="btn btn-secondary" asp-controller="GiangDay" asp-action="Index">Giờ giảng</a>
+        <a class="btn btn-secondary" asp-controller="HoatDongQuyDoi" asp-action="Index">Hoạt động quy đổi</a>
+        <a class="btn btn-info" asp-controller="TongHop" asp-action="Index">Tổng hợp giờ chuẩn</a>
+    </p>
+
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5 class="card-title">Import từ Excel</h5>
+            <p class="mb-2">
+                Bước 1: <a asp-action="DownloadTemplate" class="btn btn-sm btn-outline-success">Tải file template</a>
+                &nbsp;→&nbsp; Bước 2: nhập dữ liệu vào template &nbsp;→&nbsp; Bước 3: chọn file và bấm Import.
+            </p>
+            <form asp-action="ImportExcel" method="post" enctype="multipart/form-data" class="d-flex gap-2 align-items-center">
+                @Html.AntiForgeryToken()
+                <input type="file" name="file" accept=".xlsx" class="form-control" style="max-width: 400px;" required />
+                <button type="submit" class="btn btn-success">Import Excel</button>
+            </form>
+            <small class="text-muted">
+                Giảng viên có mã trùng với dữ liệu hiện có sẽ được <strong>cập nhật</strong>, mã mới sẽ được <strong>thêm mới</strong>.
+            </small>
+        </div>
+    </div>
+
+    @if (TempData["ImportSuccess"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show">
+            @TempData["ImportSuccess"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+    @if (TempData["ImportError"] != null)
+    {
+        <div class="alert alert-warning alert-dismissible fade show">
+            @Html.Raw(TempData["ImportError"])
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Mã GV</th>
+                <th>Họ tên</th>
+                <th>Khoa</th>
+                <th>Bộ môn</th>
+                <th>Chức danh</th>
+                <th>Trình độ</th>
+                <th>Tập sự</th>
+                <th>Nghiên cứu sinh</th>
+                <th>Trạng thái</th>
+                <th>Thao tác</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                foreach (var gv in Model)
+                {
+                    <tr>
+                        <td>@gv.MaGiangVien</td>
+                        <td>@gv.HoTen</td>
+                        <td>@gv.Khoa</td>
+                        <td>@gv.BoMon</td>
+                        <td>@gv.MaChucDanh</td>
+                        <td>@gv.TrinhDo</td>
+                        <td>@(gv.LaTapSu ? "Có" : "Không")</td>
+                        <td>@(gv.DangHocNghienCuuSinh ? "Có" : "Không")</td>
+                        <td>@(gv.DangLamViec ? "Đang làm việc" : "Ngừng làm việc")</td>
+                        <td>
+                            <a class="btn btn-sm btn-warning" asp-action="Edit" asp-route-id="@gv.Id">Sửa</a>
+
+                            <form asp-action="Delete" asp-route-id="@gv.Id" method="post" style="display:inline;"
+                                  onsubmit="return confirm('Bạn có chắc muốn xóa giảng viên này không?');">
+                                <button type="submit" class="btn btn-sm btn-danger">Xóa</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="10" class="text-center">
+                        Chưa có giảng viên nào. Bấm <strong>Thêm giảng viên</strong> để nhập dữ liệu.
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
