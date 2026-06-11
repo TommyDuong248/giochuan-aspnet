@@ -1,0 +1,60 @@
+@model GioChuanGiangDay.Models.HoatDongQuyDoiChiTiet
+
+@{
+    ViewData["Title"] = "Thêm hoạt động quy đổi";
+}
+
+<div class="container mt-4">
+    <h2>Thêm hoạt động quy đổi</h2>
+
+    <form asp-action="Create" method="post">
+        <div class="mb-3">
+            <label class="form-label">Giảng viên</label>
+            <select asp-for="GiangVienId" asp-items="ViewBag.GiangVienId" class="form-control">
+                <option value="">-- Chọn giảng viên --</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Năm học</label>
+            <input asp-for="NamHoc" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Loại hoạt động</label>
+            <select asp-for="DmHoatDongQuyDoiId" asp-items="ViewBag.DmHoatDongQuyDoiId" class="form-control">
+                <option value="">-- Chọn hoạt động --</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Tên nội dung / minh chứng</label>
+            <input asp-for="TenNoiDung" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Số lượng</label>
+            <input asp-for="SoLuong" class="form-control" type="number" step="0.5" />
+            <small class="text-muted">Ví dụ: số sinh viên, số đề tài, số bài báo, số hội đồng...</small>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Hệ số</label>
+            <input asp-for="HeSo" class="form-control" type="number" step="0.1" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Tỷ lệ đóng góp (%)</label>
+            <input asp-for="TyLeDongGop" class="form-control" type="number" step="0.1" />
+            <small class="text-muted">Một mình thực hiện nhập 100. Nếu đóng góp 50% thì nhập 50.</small>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">File minh chứng</label>
+            <input asp-for="FileMinhChung" class="form-control" />
+        </div>
+
+        <button type="submit" class="btn btn-success">Lưu và tính giờ</button>
+        <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+    </form>
+</div>

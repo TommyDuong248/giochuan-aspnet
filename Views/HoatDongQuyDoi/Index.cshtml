@@ -1,0 +1,70 @@
+@model List<GioChuanGiangDay.Models.HoatDongQuyDoiChiTiet>
+
+@{
+    ViewData["Title"] = "Hoạt động quy đổi giờ chuẩn";
+}
+
+<div class="container mt-4">
+    <h2>Hoạt động quy đổi giờ chuẩn</h2>
+
+    <p>
+        <a class="btn btn-primary" asp-action="Create">Thêm hoạt động</a>
+        <a class="btn btn-secondary" asp-controller="GiangVien" asp-action="Index">Danh sách giảng viên</a>
+        <a class="btn btn-secondary" asp-controller="GiangDay" asp-action="Index">Giờ giảng</a>
+        <a class="btn btn-info" asp-controller="TongHop" asp-action="Index">Tổng hợp giờ chuẩn</a>
+    </p>
+
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Giảng viên</th>
+                <th>Năm học</th>
+                <th>Nhóm</th>
+                <th>Hoạt động</th>
+                <th>Nội dung</th>
+                <th>Số lượng</th>
+                <th>Giờ mặc định</th>
+                <th>Hệ số</th>
+                <th>Tỷ lệ</th>
+                <th>Giờ được tính</th>
+                <th>Thao tác</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.GiangVien?.HoTen</td>
+                        <td>@item.NamHoc</td>
+                        <td>@item.DmHoatDongQuyDoi?.NhomHoatDong</td>
+                        <td>@item.DmHoatDongQuyDoi?.TenHoatDong</td>
+                        <td>@item.TenNoiDung</td>
+                        <td>@item.SoLuong</td>
+                        <td>@item.GioQuyDoiMacDinh</td>
+                        <td>@item.HeSo</td>
+                        <td>@item.TyLeDongGop%</td>
+                        <td><strong>@item.GioDuocTinh</strong></td>
+                        <td>
+                            <a class="btn btn-sm btn-warning" asp-action="Edit" asp-route-id="@item.Id">Sửa</a>
+
+                            <form asp-action="Delete" asp-route-id="@item.Id" method="post" style="display:inline;"
+                                  onsubmit="return confirm('Bạn có chắc muốn xóa dòng này không?');">
+                                <button type="submit" class="btn btn-sm btn-danger">Xóa</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="11" class="text-center">
+                        Chưa có hoạt động quy đổi nào. Bấm <strong>Thêm hoạt động</strong> để nhập dữ liệu.
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
