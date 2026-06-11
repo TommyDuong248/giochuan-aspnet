@@ -1,0 +1,76 @@
+@model List<GioChuanGiangDay.Models.GiangDayChiTiet>
+
+@{
+    ViewData["Title"] = "Danh sách giờ giảng";
+}
+
+<div class="container mt-4">
+    <h2>Danh sách giờ giảng</h2>
+
+    <p>
+        <a class="btn btn-primary" asp-action="Create">Nhập giờ giảng</a>
+        <a class="btn btn-secondary" asp-controller="GiangVien" asp-action="Index">Danh sách giảng viên</a>
+        <a class="btn btn-secondary" asp-controller="HoatDongQuyDoi" asp-action="Index">Hoạt động quy đổi</a>
+        <a class="btn btn-info" asp-controller="TongHop" asp-action="Index">Tổng hợp giờ chuẩn</a>
+    </p>
+
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Giảng viên</th>
+                <th>Năm học</th>
+                <th>Học kỳ</th>
+                <th>Mã HP</th>
+                <th>Tên học phần</th>
+                <th>Lớp</th>
+                <th>Sĩ số</th>
+                <th>Hệ số</th>
+                <th>Tiết LT</th>
+                <th>Tiết TH</th>
+                <th>Giờ LT</th>
+                <th>Giờ TH</th>
+                <th>Tổng giờ</th>
+                <th>Thao tác</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.GiangVien?.HoTen</td>
+                        <td>@item.NamHoc</td>
+                        <td>@item.HocKy</td>
+                        <td>@item.MaHocPhan</td>
+                        <td>@item.TenHocPhan</td>
+                        <td>@item.LopHocPhan</td>
+                        <td>@item.SiSo</td>
+                        <td>@item.HeSoSiSo</td>
+                        <td>@item.SoTietLyThuyet</td>
+                        <td>@item.SoTietThucHanh</td>
+                        <td>@item.GioQuyDoiLyThuyet</td>
+                        <td>@item.GioQuyDoiThucHanh</td>
+                        <td><strong>@item.TongGioQuyDoi</strong></td>
+                        <td>
+                            <a class="btn btn-sm btn-warning" asp-action="Edit" asp-route-id="@item.Id">Sửa</a>
+
+                            <form asp-action="Delete" asp-route-id="@item.Id" method="post" style="display:inline;"
+                                  onsubmit="return confirm('Bạn có chắc muốn xóa dòng giờ giảng này không?');">
+                                <button type="submit" class="btn btn-sm btn-danger">Xóa</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="14" class="text-center">
+                        Chưa có dữ liệu giờ giảng. Bấm <strong>Nhập giờ giảng</strong> để thêm mới.
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

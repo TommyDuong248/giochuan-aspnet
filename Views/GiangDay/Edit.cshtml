@@ -1,0 +1,83 @@
+@model GioChuanGiangDay.Models.GiangDayChiTiet
+
+@{
+    ViewData["Title"] = "Sửa giờ giảng";
+}
+
+<div class="container mt-4">
+    <h2>Sửa giờ giảng</h2>
+
+    <form asp-action="Edit" method="post">
+        <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="HeSoSiSo" />
+        <input type="hidden" asp-for="GioQuyDoiLyThuyet" />
+        <input type="hidden" asp-for="GioQuyDoiThucHanh" />
+        <input type="hidden" asp-for="TongGioQuyDoi" />
+        <input type="hidden" asp-for="TrangThaiDuyet" />
+        <input type="hidden" asp-for="NgayTao" />
+
+        <div class="mb-3">
+            <label class="form-label">Giảng viên</label>
+            <select asp-for="GiangVienId" asp-items="ViewBag.GiangVienId" class="form-control">
+                <option value="">-- Chọn giảng viên --</option>
+            </select>
+            <span asp-validation-for="GiangVienId" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Năm học</label>
+            <input asp-for="NamHoc" class="form-control" />
+            <span asp-validation-for="NamHoc" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Học kỳ</label>
+            <select asp-for="HocKy" class="form-control">
+                <option value="HK1">Học kỳ 1</option>
+                <option value="HK2">Học kỳ 2</option>
+                <option value="HE">Học kỳ hè</option>
+            </select>
+            <span asp-validation-for="HocKy" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Mã học phần</label>
+            <input asp-for="MaHocPhan" class="form-control" />
+            <span asp-validation-for="MaHocPhan" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Tên học phần</label>
+            <input asp-for="TenHocPhan" class="form-control" />
+            <span asp-validation-for="TenHocPhan" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Lớp học phần</label>
+            <input asp-for="LopHocPhan" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Số tín chỉ</label>
+            <input asp-for="SoTinChi" class="form-control" type="number" step="0.5" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Số tiết lý thuyết</label>
+            <input asp-for="SoTietLyThuyet" class="form-control" type="number" step="0.5" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Số tiết thực hành</label>
+            <input asp-for="SoTietThucHanh" class="form-control" type="number" step="0.5" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Sĩ số lớp</label>
+            <input asp-for="SiSo" class="form-control" type="number" />
+        </div>
+
+        <button type="submit" class="btn btn-success">Lưu thay đổi và tính lại giờ</button>
+        <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+    </form>
+</div>
